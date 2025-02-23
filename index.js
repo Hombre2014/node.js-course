@@ -46,7 +46,7 @@
 
 // 18. Path module
 
-const path = require('path');
+// const path = require('path');
 // const filePath = path.join(__dirname, 'apple.js');
 
 // console.log(__filename);
@@ -63,6 +63,137 @@ const path = require('path');
 // console.log(path.isAbsolute(__filename));
 // console.log(path.isAbsolute('./data.json'));
 
-console.log(path.join('folder1', 'folder2', 'index.html'));
+// console.log(path.join('folder1', 'folder2', 'index.html'));
 
-console.log(path.resolve('folder1', 'folder2', 'index.html'));
+// console.log(path.resolve('folder1', 'folder2', 'index.html'));
+
+// Chapter 19. Callback Pattern
+
+// function greet(name) {
+//   console.log(name);
+// }
+
+// function higherOrderFunction(callBackFunction) {
+//   const name = 'Faraz';
+//   callBackFunction(name);
+// }
+
+// higherOrderFunction(greet);
+
+// Chapter 20. Events Module
+
+// const EventEmitter = require('events');
+
+// const emitter = new EventEmitter();
+
+// emitter.on('order-pizza', (size, toppings) => {
+//   console.log('Pizza is ordered, size:', size, 'toppings:', toppings);
+// });
+
+// emitter.on('order-pizza', (size, toppings) => {
+//   if (size == "Large") {
+//     console.log('Cold drinks will be provided complimentary');
+//   }
+// });
+
+// emitter.emit('order-pizza', 'Large', 'Extra Cheese');
+
+// Chapter 21. Extending from EventsEmitter
+
+// const PizzaShop = require('./pizza-shop');
+// const DrinkMachine = require('./drink-machine');
+
+// const pizzaShop = new PizzaShop();
+// const drinkMachine = new DrinkMachine();
+
+// pizzaShop.on('order-pizza', (size, toppings) => {
+//   console.log('Pizza is ordered, size:', size, 'toppings:', toppings);
+//   drinkMachine.serveDrink(size);
+// });
+
+// pizzaShop.order('Large', 'Pepperoni');
+// pizzaShop.displayOrder();
+
+// Chapter 23 Streams and Buffers
+// const buffer = new Buffer.from('Faraz'); // it has 5 bytes
+
+// buffer.write('Code'); // Codez
+// buffer.write('Rawala'); // Rawal
+
+// console.log(buffer.toJSON());
+// console.log(buffer);
+// console.log(buffer.toString());
+
+// Chapter 25 Promise Module
+// const fs = require('node:fs/promises');
+
+// console.log('Start reading a file...');
+// fs.readFile('./file.txt', 'utf-8')
+//   .then(data => console.log(data))
+//   .catch(error => console.log(error));
+// console.log('Finish reading a file...');
+
+// async function readFile() {
+//   console.log('Start reading a file...');
+//   try {
+//     const data = await fs.readFile('./file.txt', 'utf-8');
+//     console.log(data);
+//     console.log('Finish reading a file...');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// readFile();
+
+// Chapter 26 Streams
+// const fs = require('fs');
+
+// const readableStream = fs.createReadStream('./file.txt', {
+//   encoding: 'utf-8',
+//   highWaterMark: 2
+// });
+
+// const writableStream = fs.createWriteStream('./file2.txt');
+
+// readableStream.on('data', (chunk) => {
+//   console.log(chunk);
+//   writableStream.write(chunk);
+// });
+
+// Chapter 27. Pipes
+
+// const fs = require('fs');
+// const zlip = require('zlib');
+// const gzip = zlip.createGzip();
+
+// const readableStream = fs.createReadStream('./file.txt', {
+//   encoding: 'utf-8',
+//   highWaterMark: 2
+// });
+
+// readableStream.pipe(gzip).pipe(fs.WriteStream('./file2.txt.zip'));
+
+// const writableStream = fs.createWriteStream('./file2.txt');
+
+// readableStream.pipe(writableStream);
+
+// Chapter HTTP Module
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+
+  const superHero = {
+    name: 'Iron',
+    lastName: 'Man',
+    age: 30
+  }
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify(superHero));
+});
+
+server.listen(3000, () => {
+  console.log('Server is listening on port 3000...');
+});
+
