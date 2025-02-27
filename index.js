@@ -180,20 +180,106 @@
 
 // Chapter HTTP Module
 
+// const http = require('http');
+
+// const server = http.createServer((req, res) => {
+
+//   const superHero = {
+//     name: 'Iron',
+//     lastName: 'Man',
+//     age: 30
+//   }
+//   res.writeHead(200, { 'Content-Type': 'application/json' });
+//   res.end(JSON.stringify(superHero));
+// });
+
+// server.listen(3000, () => {
+//   console.log('Server is listening on port 3000...');
+// });
+
+// Chapter 29 Create a Node Server
+
+// const http = require('http');
+// const fs = require('fs');
+// const server = http.createServer((req, res) => {
+
+//   const superHero = {
+//     firstName: "Iron",
+//     lastName: "Man",
+//   }
+
+// Reply with plain text
+// res.writeHead(200, { 'Content-Type': 'text/plain' });
+// res.end('Hello World')
+
+// Reply with JSON format for API
+// res.writeHead(200, { 'Content-Type': 'application/json' });
+// res.end(JSON.stringify(superHero));
+
+// Reply with HTML
+// res.writeHead(200, { 'Content-Type': 'text/html' });
+// res.end('<h1>Hello World</h1>');
+
+// Reply with file
+// const html = fs.readFileSync('./index.html', 'utf8');
+// res.end(html);
+// And using streams
+// fs.createReadStream('./index.html').pipe(res);
+// Better way:
+// fs.createReadStream(__dirname + '/index.html').pipe(res)
+// });
+
+// server.listen(3000, () => {
+//   console.log('Server is listening on port 3000...');
+// });
+
+// Chapter 32 HTML template
+// const http = require('http');
+// const fs = require('fs');
+// const server = http.createServer((req, res) => {
+
+//   const superHero = {
+//     firstName: "Iron",
+//     lastName: "Man",
+//   }
+
+//   res.writeHead(200, { 'Content-Type': 'text/html' });
+//   const name = 'Faraz';
+//   let html = fs.readFileSync('./index.html', 'utf8');
+//   html = html.replace("{{name}}", name);
+//   res.end(html);
+
+// });
+
+// server.listen(3000, () => {
+//   console.log('Server is listening on port 3000...');
+// });
+
+// Chapter 33. HTTP Routing
 const http = require('http');
-
+const fs = require('fs');
 const server = http.createServer((req, res) => {
-
-  const superHero = {
-    name: 'Iron',
-    lastName: 'Man',
-    age: 30
+  // Returns the url
+  // res.end(req.url);
+  req.method == PUT, POST, GET, DELETE
+  if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' })
+    res.end('Home Page');
+  } else if (req.url === '/about') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' })
+    res.end('About Page');
+  } else if (req.url === '/api') {
+    res.writeHead(200, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify({
+      name: 'Faraz', age
+        : 30
+    }));
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' })
+    res.end('404 Page Not Found');
   }
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(superHero));
 });
 
 server.listen(3000, () => {
   console.log('Server is listening on port 3000...');
 });
-
