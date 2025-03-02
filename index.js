@@ -256,30 +256,81 @@
 // });
 
 // Chapter 33. HTTP Routing
-const http = require('http');
+// const http = require('http');
+// const fs = require('fs');
+// const server = http.createServer((req, res) => {
+//   // Returns the url
+//   // res.end(req.url);
+//   req.method == PUT, POST, GET, DELETE
+//   if (req.url === '/') {
+//     res.writeHead(200, { 'Content-Type': 'text/plain' })
+//     res.end('Home Page');
+//   } else if (req.url === '/about') {
+//     res.writeHead(200, { 'Content-Type': 'text/plain' })
+//     res.end('About Page');
+//   } else if (req.url === '/api') {
+//     res.writeHead(200, { 'Content-Type': 'application/json' })
+//     res.end(JSON.stringify({
+//       name: 'Faraz', age
+//         : 30
+//     }));
+//   } else {
+//     res.writeHead(404, { 'Content-Type': 'text/plain' })
+//     res.end('404 Page Not Found');
+//   }
+// });
+
+// server.listen(3000, () => {
+//   console.log('Server is listening on port 3000...');
+// });
+
+// Chapter 38. Microtask Queues
+
+// process.nextTick(() => console.log("This is process.nextTick-1"));
+// process.nextTick(() => {
+//   console.log("This is process.nextTick-2");
+//   process.nextTick(() => console.log("This is the inner next tick inside next tick"));
+// });
+// process.nextTick(() => console.log("This is process.nextTick-3"));
+
+// Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+// Promise.resolve().then(() => {
+//   console.log("This is Promise.resolve 2");
+//   process.nextTick(() => console.log("This is the inner next tick inside Promise then block"));
+// });
+
+// Chapter 39. Timer Queue
+// setTimeout(() => console.log("This is setTimeout 1"), 0);
+// setTimeout(() => console.log("This is setTimeout 2"), 0);
+// setTimeout(() => console.log("This is setTimeout 3"), 0);
+
+// process.nextTick(() => console.log("This is process.nextTick-1"));
+// process.nextTick(() => {
+//   console.log("This is process.nextTick-2");
+//   process.nextTick(() => console.log("This is the inner next tick inside next tick"));
+// });
+// process.nextTick(() => console.log("This is process.nextTick-3"));
+
+// Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+// Promise.resolve().then(() => {
+//   console.log("This is Promise.resolve 2");
+//   process.nextTick(() => console.log("This is the inner next tick inside Promise then block"));
+// });
+
+// setTimeout(() => console.log("This is setTimeout 1"), 1000);
+// setTimeout(() => console.log("This is setTimeout 2"), 500);
+// setTimeout(() => console.log("This is setTimeout 3"), 0);
+
+// Chapter 40. I/O Queue
+
 const fs = require('fs');
-const server = http.createServer((req, res) => {
-  // Returns the url
-  // res.end(req.url);
-  req.method == PUT, POST, GET, DELETE
-  if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.end('Home Page');
-  } else if (req.url === '/about') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.end('About Page');
-  } else if (req.url === '/api') {
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({
-      name: 'Faraz', age
-        : 30
-    }));
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' })
-    res.end('404 Page Not Found');
-  }
+
+fs.readFile(__filename, () => {
+  console.log('This is readfile 1')
 });
 
-server.listen(3000, () => {
-  console.log('Server is listening on port 3000...');
-});
+process.nextTick(() => console.log("This is process.nextTick 1"));
+Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+setTimeout(() => console.log("This is setTimeout 1"), 0);
+
+for (let i = 0; i < 1000000000; i++) { }
