@@ -323,14 +323,47 @@
 
 // Chapter 40. I/O Queue
 
+// const fs = require('fs');
+
+// fs.readFile(__filename, () => {
+//   console.log('This is readfile 1')
+// });
+
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+// Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+// setTimeout(() => console.log("This is setTimeout 1"), 0);
+
+// for (let i = 0; i < 1000000000; i++) { }
+
+// Chapter 41. Check Queue
+
+// const fs = require('fs');
+
+// fs.readFile(__filename, () => {
+//   console.log('This is readfile 1');
+
+//   setImmediate(() => console.log("This is setImmediate inner callback"));
+//   process.nextTick(() => console.log("This is process.nextTick inner callback"));
+//   Promise.resolve().then(() => console.log("This is Promise.resolve inner callback"));
+// });
+
+// process.nextTick(() => console.log("This is process.nextTick 1"));
+// Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+// setTimeout(() => console.log("This is setTimeout 1"), 0);
+
+// for (let i = 0; i < 1000000000; i++) { }
+
+// Chapter 42. Close Queue
+
 const fs = require('fs');
 
-fs.readFile(__filename, () => {
-  console.log('This is readfile 1')
+const readableStream = fs.createReadStream(__filename);
+readableStream.close();
+
+readableStream.on('close', () => {
+  console.log('This is from readableStream close event');
 });
-
-process.nextTick(() => console.log("This is process.nextTick 1"));
-Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+setImmediate(() => console.log("This is setImmediate 1"));
 setTimeout(() => console.log("This is setTimeout 1"), 0);
-
-for (let i = 0; i < 1000000000; i++) { }
+Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+process.nextTick(() => console.log("This is process.nextTick 1"));
